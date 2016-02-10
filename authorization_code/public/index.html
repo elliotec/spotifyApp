@@ -19,9 +19,15 @@
   <body>
     <div class="container">
       <div id="login" class="row">
-        <h1 class="col-sm-10">Spotify Playlist Creator</h1>
+        <h1 class="col-sm-10">Search for an Artist</h1>
         <a href="/login" class="btn btn-primary col-sm-2" style="margin-top:25px">Log In with Spotify</a>
+
       </div>
+      <form>
+        <input id="artistSearch" type="text">
+        <button type="submit" class="searchBtn btn btn-primary">Search</button>
+        <img class="albumArt">
+      </form>
       <div id="loggedin">
         <div id="user-profile">
         </div>
@@ -111,9 +117,46 @@
                   userProfilePlaceholder.innerHTML = userProfileTemplate(response);
 
                   $('#login').hide();
-                  $('#loggedin').show();
+                  $('#loggedin').hide();
                 }
             });
+
+            // $(".searchBtn").click(getArtist());
+
+
+            function getArtist() {
+              var searchInput = $("#artistSearch").value;
+
+
+
+              $.ajax({
+                url: 'https://api.spotify.com/v1/artists/432R46LaYsJZV2Gmc4jUV5',
+                type: "get",
+                dataType: 'json',
+                success: function(response) {
+
+                  var images = response.images;
+
+                  $(images).each(function(i, item) {
+                    $('.albumArt').attr('src', item.url);
+
+                    console.log($('.albumArt'));
+                  });
+
+                  document.write(response.name);
+                  console.log(response);
+                },
+                error: function(response) {
+                  console.log("error");
+                },
+              });
+
+
+            }
+
+
+            getArtist();
+
           } else {
               // render initial screen
               $('#login').show();
@@ -137,4 +180,5 @@
         }
       })();
     </script>
+  </body>
 </html>
