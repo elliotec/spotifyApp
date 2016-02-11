@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+  <head>
+    <title>Spotify Playlist Creator</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <style type="text/css">
+      .text-overflow {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 500px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <h1 class="col-sm-10">Search for an Artist</h1>
+      </div>
+      <form action="">
+        <input id="artistSearch" type="text">
+        <button type="submit" class="searchBtn btn btn-primary">Search</button>
+      </form>
+      <div class="albumArt">
+        <img alt="art" src="" class="albumArtImg">
+        <img alt="art" src="" class="albumArtImg">
+        <img alt="art" src="" class="albumArtImg">
+        <img alt="art" src="" class="albumArtImg">
+        <img alt="art" src="" class="albumArtImg">
+        <img alt="art" src="" class="albumArtImg">
+        <img alt="art" src="" class="albumArtImg">
+
+      </div>
+      <div class="art-images">
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+(function() {
+
+  $(".searchBtn").click(getArtist());
+
+  function getArtist() {
+    var searchInput = $("#artistSearch").value;
+
+    $.ajax({
+      url: 'https://api.spotify.com/v1/artists/432R46LaYsJZV2Gmc4jUV5',
+      type: "get",
+      dataType: 'json',
+      success: function(response) {
+
+        var images = response.images;
+
+        $(images).each(function(i, item) {
+          $('.albumArtImg').attr('src', item.url);
+
+        });
+
+        $(".art-images").html(response.name);
+        console.log(response);
+      },
+      error: function(response) {
+        console.log("error");
+      },
+    });
+  }
+  getArtist();
+})();
+    </script>
+  </body>
+</html>
