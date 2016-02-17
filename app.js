@@ -4,8 +4,9 @@ $(".searchBtn").on('click', function (e) {
 });
 
 function getArtist() {
+  searchArtist($('#artistSearch').val());
 
-  function searchAlbums(query) {
+  function searchArtist(query) {
     $.ajax({
       url: 'https://api.spotify.com/v1/search',
       data: {
@@ -15,37 +16,45 @@ function getArtist() {
       success: function(response) {
         console.log(response);
 
-        $.ajax({
-          url: 'https://api.spotify.com/v1/artists/' + response.artists.items[0].id + '/related-artists',
-          success: function(data) {
-            console.log(data);
-            var artists = data.artists;
-            $('.results').append("<h2> artists related to " + query + "</h2>");
-            $.each(artists, function(i, item) {
-              $('.results').append("<h3>" + item.name + "</h3>");
-              $('.results').append("<img src='" + item.images[0].url + "'>");
-            });
+        $('.results').append("<h2> artists related to " + query + "</h2>");
 
-            for each (var artist in artists) {
-              $.ajax({
-                url: 'https://api.spotify.com/v1/artists/' + artist.id + '/top-tracks?country=US',
-                success: function(result) {
-                  console.log(result);
-                  var track = result.tracks;
-                  $.each(track, function(i, item) {
-                    $('.results').append("<h3>" + item.name + "</h3>");
-                  });
-                }
-              });
-            }
-
-          }
-        });
-
+        getRelated(response);
       }
     });
   }
 
-  searchAlbums($('#artistSearch').val());
+  function getRelated(response) {
+    $.ajax({
+      url: 'https://api.spotify.com/v1/artists/' + response.artists.items[0].id + '/related-artists',
+      success: function(data) {
+        console.log(data);
+        var artists = data.artists;
+
+        $.each(artists, function(i, item) {
+          $('.results').append("<h3>" + item.name + "</h3>");
+          $('.results').append("<img src='" + item.images[0].url + "'>");
+        });
+
+        getTracks(artists);
+      }
+    });
+  }
+
+  function getTracks(artists) {
+    for (var artist in artists) {
+      $.ajax({
+        url: 'https://api.spotify.com/v1/artists/' + artists.id + '/top-tracks?country=US',
+        success: function(result) {
+          console.log(result);
+          var track = result.tracks;
+
+          $.each(track, function(i, item) {
+            $('.results').append("<h3>" + item.name + "</h3>");
+          });
+
+        }
+      });
+    }
+  }
 
 }
