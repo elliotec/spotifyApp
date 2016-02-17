@@ -32,7 +32,7 @@ function getArtist() {
 
         $.each(artists, function(i, item) {
           $('.results').append("<h3>" + item.name + "</h3>");
-          $('.results').append("<img src='" + item.images[0].url + "'>");
+          $('.results').append("<img class='album-cover' src='" + item.images[0].url + "'>");
         });
 
         getTracks(artists);
@@ -41,15 +41,17 @@ function getArtist() {
   }
 
   function getTracks(artists) {
+    //var artist = artists[0];
+
     for (var artist in artists) {
       $.ajax({
-        url: 'https://api.spotify.com/v1/artists/' + artists.id + '/top-tracks?country=US',
+        url: 'https://api.spotify.com/v1/artists/' + artists[0].id + '/top-tracks?country=US',
         success: function(result) {
           console.log(result);
           var track = result.tracks;
 
           $.each(track, function(i, item) {
-            $('.results').append("<h3>" + item.name + "</h3>");
+            $('.album-cover').append("<h3>" + item.name + "</h3>");
           });
 
         }
