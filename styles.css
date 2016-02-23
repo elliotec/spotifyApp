@@ -1,10 +1,56 @@
 body {
   font-family:"Sofia", sans-serif;
   background:#000;
+  color:#fff;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight:400;
+}
+
+a:hover {
+  text-decoration:none;
+}
+
+.row {
+  margin:0 auto;
+}
+
+nav {
+  padding:2em;
+}
+
+.logo {
+  padding:0;
+  max-width:150px;
+  vertical-align: text-bottom;
+}
+
+ul {
+  list-style-type: none;
+  margin:0 auto;
+  padding:0;
+  padding-top:1em;
+  line-height:50px;
+}
+
+li {
+  text-decoration: none;
+  display:inline;
+}
+
+.logIn {
+  color:#fff;
+  background:transparent;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+}
+
+.logIn:hover {
+  color:#2ebd59;
 }
 
 .search-container {
@@ -18,7 +64,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .search-container form, .search-container .row {
-  padding:1em;
+  padding:2em;
+  padding-top:0;
 }
 
 input {
@@ -68,12 +115,16 @@ textarea:focus, input:focus, .searchBtn:focus {
   height:250px;
 }
 
-.results h2 {
+.results h1 {
   text-transform: uppercase;
   color:#fff;
 }
 
-.results h3 {
+.results h2 {
   color:#2ebd59;
-  font-style:italics;
+  margin-bottom:1em;
+}
+
+.results h3 {
+  color:#fff;
 }

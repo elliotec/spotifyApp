@@ -1,16 +1,19 @@
 <!doctype html>
 <html>
   <head>
-    <title>Spotify Artist Search</title>
+    <title>Spotify Playlist Creator</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
   </head>
 
   <body>
+    <nav class="row">
+      <ul>
+        <li class="col-sm-10"><img class="logo" src="images/spotify-logo.png"></li>
+        <li class="col-sm-2"><a class="logIn">Log In</a></li>
+      </ul>
+    </nav>
     <div class="search-container">
-      <div class="row">
-        <h1>RELATED ARTIST SEARCH</h1>
-      </div>
       <form id="searchArtist">
         <input id="artistSearch" type="text" placeholder=" Type an artist's name">
         <button type="submit" class="searchBtn">Search</button>
@@ -20,7 +23,6 @@
     <div class="results">
       <div class="title"></div>
       <div class="related-artists"></div>
-      <div class="album-cover"></div>
       <div class="top-tracks"></div>
     </div>
 
