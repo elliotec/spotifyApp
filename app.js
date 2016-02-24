@@ -48,42 +48,30 @@ function getArtist() {
   }
 }
 
-var stateKey = 'spotify_auth_state';
-var access_token = "";
-var state= "";
-var storedState = localStorage.getItem(stateKey);
-if (access_token && (state === null || state !== storedState)) {
-  alert('There was an error during the authentication');
-} else {
-  localStorage.removeItem(stateKey);
-  if (access_token) {
-    $.ajax({
-        url: 'https://api.spotify.com/v1/me',
-        headers: {
-          'Authorization': 'Bearer ' + access_token
-        },
-        success: function(response) {
-          console.log("it worked!");
+document.getElementById('logIn').addEventListener('click', function() {
 
-        }
-    });
-  } else {
-      console.log("didnt work");
-  }
-
-  document.getElementById('logIn').addEventListener('click', function() {
-    var client_id = '70fda190f10c4e95aaf77d9957e7ebed'; // Your client id
-    var redirect_uri = 'http://localhost:8888/'; // Your redirect uri
-
-    localStorage.setItem(stateKey, state);
-    var scope = 'user-read-private user-read-email';
-    var url = 'https://accounts.spotify.com/authorize';
-    url += '?response_type=token';
-    url += '&client_id=' + encodeURIComponent(client_id);
-    url += '&scope=' + encodeURIComponent(scope);
-    url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+  var client_id = '70fda190f10c4e95aaf77d9957e7ebed';
+  var redirect_uri = 'http://localhost:8888/';
+  var url = 'https://accounts.spotify.com/authorize';
+  url += '?response_type=token';
+  url += '&client_id=' + encodeURIComponent(client_id);
+  url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+  window.location = url;
+  getHashParams();
+}, false);
 
 
-    window.location = url;
-  }, false);
+function getStringFromURL(url) {
+  var tokenString = window.location.hash.slice(1);
+  alert(tokenString);
 }
+
+// $.ajax({
+//   url: 'https://api.spotify.com/v1/me',
+//   headers: {
+//     'Authorization': 'Bearer ' + access_token
+//   },
+//   success: function(response) {
+//     alert("it worked");
+//   }
+// });
